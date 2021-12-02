@@ -8,37 +8,39 @@ public class DataProcessor {
 
 
     public static boolean atLeastOneGradeA(Student student) {
-        return false;
+        return student.getGrades().stream().filter(grade -> grade.getType().getValue() == 100).count() > 0;
     }
 
 
     public static List<Integer> getStudentAges(List<Student> students) {
-        return new ArrayList<>();
+        return students.stream().map(student -> student.getAge()).toList();
     }
 
     public static List<Student> getStudentsWithMinimumAge(List<Student> students, int minAge) {
-        return new ArrayList<>();
+        return students.stream().filter(student -> student.getAge() >= minAge).toList();
     }
 
 
     // getGender() == Gender.MALE
     // or getGender().name().equals("MALE")
     public static long countMaleStudents(List<Student> students) {
-        return 0;
+        return students.stream().filter(student -> student.getGender() == Gender.MALE).count();
     }
 
 
     public static double avgAgeOfFemaleStudent(List<Student> students) {
-        return 0.0;
+        int sum = students.stream().filter(student -> student.getGender() == Gender.FEMALE).map(Student::getAge).reduce(Integer::sum).orElse(0);
+        long femaleCount = students.stream().filter(student -> student.getGender() == Gender.FEMALE).count();
+        return  (double) sum / femaleCount;
     }
 
     public static Integer getProductOfStudentAges(List<Student> students) {
-        return 0;
+        return students.stream().mapToInt(Student::getAge).sum();
     }
 
     // ignore F Grades
     public static double productOfStudentGrades(Student student) {
-        return 0.0;
+        return student.getGrades().stream().mapToDouble(students -> students.getType().getValue()).sum();
     }
 
     // region BONUS
