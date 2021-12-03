@@ -38,7 +38,7 @@ public class DataProcessor {
 
     // ignore F Grades
     public static double productOfStudentGrades(Student student) {
-        return student.getGrades().stream().mapToDouble(students -> students.getType().getValue()).sum();
+        return student.getGrades().stream().mapToDouble(students -> students.getType().getValue()).reduce((student2, export) -> student2 * export).getAsDouble();
     }
 
     // region BONUS
