@@ -8,7 +8,7 @@ public class DataProcessor {
 
 
     public static boolean atLeastOneGradeA(Student student) {
-        return student.getGrades().stream().filter(grade -> grade.getType().getValue() == 100).count() > 0;
+        return student.getGrades().stream().anyMatch(grade -> grade.getType().getValue() == 100);
     }
 
 
@@ -29,13 +29,11 @@ public class DataProcessor {
 
 
     public static double avgAgeOfFemaleStudent(List<Student> students) {
-        int sum = students.stream().filter(student -> student.getGender() == Gender.FEMALE).map(Student::getAge).reduce(Integer::sum).orElse(0);
-        long femaleCount = students.stream().filter(student -> student.getGender() == Gender.FEMALE).count();
-        return  (double) sum / femaleCount;
+        return students.stream().filter(student -> student.getGender() == Gender.FEMALE).mapToDouble(Student::getAge).average().orElse(Double.NaN);
     }
 
     public static Integer getProductOfStudentAges(List<Student> students) {
-        return students.stream().mapToInt(Student::getAge).sum();
+        return students.stream().mapToInt(student -> student.getAge()).reduce(1, (res, studentAge) -> studentAge * res);
     }
 
     // ignore F Grades
