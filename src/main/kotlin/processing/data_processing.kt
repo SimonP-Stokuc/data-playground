@@ -4,39 +4,39 @@ import streams.*
 
 
 fun atLeastOneGradeA(student: Student): Boolean {
-    TODO()
+    return student.grades.any { grade -> grade.type == GradeType.A}
 }
 
 
 fun getStudentAges(students: List<Student>): List<Int> {
-    TODO()
+    return students.asSequence().map { student -> student.age }.toList()
 }
 
 fun getStudentsWithMinimumAge(students: List<Student>, minAge: Int): List<Student> {
-    TODO()
+    return students.asSequence().filter{ student -> student.age >= minAge}.toList()
 }
 
 
 // gender == Gender.MALE
 // or gender.name == "MALE"
 fun countMaleStudents(students: List<Student>): Int {
-    TODO()
+    return students.asSequence().filter { student -> student.gender == Gender.MALE }.count()
 }
 
 
 // gender == Gender.FEMALE
 // or gender.name == "FEMALE"
 fun avgAgeOfFemaleStudent(students: List<Student>): Double {
-    TODO()
+    return students.asSequence().filter { student -> student.gender == Gender.FEMALE }.map { student -> student.age }.average()
 }
 
 fun getProductOfStudentAges(students: List<Student>): Int {
-    TODO()
+    return students.asSequence().map { student -> student.age }.reduce{acc, i -> i * acc }
 }
 
 // ignore F Grades
 fun productOfStudentGrades(student: Student): Int {
-    TODO()
+    return student.grades.asSequence().map { grade -> grade.type.value }.reduce{acc, i -> i * acc}
 }
 
 // region BONUS
